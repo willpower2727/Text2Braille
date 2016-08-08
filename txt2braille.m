@@ -23,14 +23,25 @@ for z=1:length(txt)
 end
 
 %generate braille images and splice together
+finalf = [];
+finalb = [];
 for m = 1:length(braille)
     for n=1:2
-        
-        
+%         dec2base(braille(m,n),10) - '0'
+        [imf,imb] = makebraille(dec2base(braille(m,n),10) - '0');
+        finalf = cat(2,finalf,imf);
+        finalb = cat(2,imb,finalb);
         
     end
 end
 
+figure(1)
+subplot(1,2,1)
+imshow(finalf);
+title('forward');
+subplot(1,2,2)
+imshow(finalb);
+title('backword');
 
 end
 
