@@ -1,0 +1,18 @@
+function [imgout] = makebraille(dots)
+%makebraille() is a supporting function for txt2braille, given a set of
+%dots it returns a single image of the desired configuration
+%   i.e.
+%
+%   img = makebraille([1,2,5,6]); returns braille image of dots 1256
+
+figure
+hold on
+for z=1:length(dots)
+   if dots(z) <=3
+       scatter(1,dots(z),'o','MarkerFaceCol
+    
+end
+
+
+end
+
