@@ -19,7 +19,14 @@ for z=1:length(txt)
 %     unicode2native(txt(z));
     [~,~,ib] = intersect(unicode2native(txt(z)),key(:,1));
 %     disp(key(ib,2:3))
-    braille(z,:) = key(ib,2:3);
+    if ~isempty(ib)
+        braille(z,:) = key(ib,2:3);
+        charin(z) = key(ib,1);
+    else
+        braille(z,:) = [0,0];
+        charin(z) = 0;
+        disp('Warning: invalid character detected, removed from string');
+    end
 end
 
 %generate braille images and splice together
@@ -28,7 +35,7 @@ finalb = [];
 for m = 1:length(braille)
     for n=1:2
 %         dec2base(braille(m,n),10) - '0'
-        [imf,imb] = makebraille(dec2base(braille(m,n),10) - '0');
+        [imf,imb] = makebraille(dec2base(braille(m,n),10) - '0',char(charin(m)));
         finalf = cat(2,finalf,imf);
         finalb = cat(2,imb,finalb);
         
@@ -36,12 +43,12 @@ for m = 1:length(braille)
 end
 
 figure(1)
-subplot(1,2,1)
+subplot(2,1,1)
 imshow(finalf);
-title('forward');
-subplot(1,2,2)
+title('forwards');
+subplot(2,1,2)
 imshow(finalb);
-title('backword');
+title('backwards');
 
 end
 
